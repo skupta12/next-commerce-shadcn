@@ -5,7 +5,7 @@ import {
 } from "../constants";
 import { isShopifyError } from "../type-guards";
 import { ensureStartsWith } from "../utils";
-import { getCollectionsQuery } from "./queries/collection";
+import { getCollectionProductsQuery, getCollectionsQuery } from "./queries/collection";
 import { getMenuQuery } from "./queries/menu";
 import { getProductsQuery } from "./queries/product";
 import {
@@ -18,7 +18,8 @@ import {
   Image,
   Collection,
   ShopifyCollectionsOperation,
-  ShopifyCollection
+  ShopifyCollection,
+  ShopifyCollectionProductsOperation,
 } from "./types";
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
@@ -191,10 +192,9 @@ const reshapeCollection = (
 
   return {
     ...collection,
-    path: `/search/${collection.handle}`
+    path: `/search/${collection.handle}`,
   };
 };
-
 
 const reshapeCollections = (collections: ShopifyCollection[]) => {
   const reshapedCollections = [];
@@ -212,32 +212,59 @@ const reshapeCollections = (collections: ShopifyCollection[]) => {
   return reshapedCollections;
 };
 
-
 export async function getCollections(): Promise<Collection[]> {
-
   const res = await shopifyFetch<ShopifyCollectionsOperation>({
     query: getCollectionsQuery,
-    tags: [TAGS.collections]
+    tags: [TAGS.collections],
   });
   const shopifyCollections = removeEdgesAndNodes(res.body?.data?.collections);
   const collections = [
     {
-      handle: '',
-      title: 'All',
-      description: 'All products',
+      handle: "",
+      title: "All",
+      description: "All products",
       seo: {
-        title: 'All',
-        description: 'All products'
+        title: "All",
+        description: "All products",
       },
-      path: '/search',
-      updatedAt: new Date().toISOString()
+      path: "/search",
+      updatedAt: new Date().toISOString(),
     },
     // Filter out the `hidden` collections.
     // Collections that start with `hidden-*` need to be hidden on the search page.
     ...reshapeCollections(shopifyCollections).filter(
-      (collection) => !collection.handle.startsWith('hidden')
-    )
+      (collection) => !collection.handle.startsWith("hidden")
+    ),
   ];
 
   return collections;
+}
+
+export async function getCollectionProducts({
+  collection,
+  reverse,
+  sortKey,
+}: {
+  collection: string;
+  reverse?: boolean;
+  sortKey?: string;
+}): Promise<Product[]> {
+  const res = await shopifyFetch<ShopifyCollectionProductsOperation>({
+    query: getCollectionProductsQuery,
+    tags: [TAGS.collections, TAGS.products],
+    variables: {
+      handle: collection,
+      reverse,
+      sortKey: sortKey === "CREATED_AT" ? "CREATED" : sortKey,
+    },
+  });
+
+  if (!res.body.data.collection) {
+    console.log(`No collection found for \`${collection}\``);
+    return [];
+  }
+
+  return reshapeProducts(
+    removeEdgesAndNodes(res.body.data.collection.products)
+  );
 }

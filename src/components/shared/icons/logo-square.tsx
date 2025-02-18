@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
-import LogoIcon from "./logo";
+import { Logo } from "./logo";
 
-export default function LogoSquare({ size }: { size?: "sm" | undefined }) {
+export const LogoSquare = ({ size }: { size?: "sm" | undefined }) => {
   return (
     <div
       className={cn(
@@ -12,7 +12,7 @@ export default function LogoSquare({ size }: { size?: "sm" | undefined }) {
         }
       )}
     >
-      <LogoIcon
+      <Logo
         className={cn({
           "h-[16px] w-[16px]": !size,
           "h-[10px] w-[10px]": size === "sm",

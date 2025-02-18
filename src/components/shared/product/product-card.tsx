@@ -1,6 +1,5 @@
 import { Product } from "@/lib/shopify/types";
 import Link from "next/link";
-import React from "react";
 import { cn } from "@/lib/utils";
 import { ProductCardItem } from "./product-card-item";
 
@@ -18,7 +17,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       {products.map((product) => (
         <div
           key={product.handle}
-          className="lg:col-span-4 sm:col-span-6 col-span-12 border p-0"
+          className="lg:col-span-4 sm:col-span-6 col-span-12 border p-0 animate-fadeIn"
         >
           <Link
             className="flex flex-col gap-4"

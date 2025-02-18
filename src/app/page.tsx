@@ -5,12 +5,12 @@ import React from 'react';
 // }
 
 export default async function Home() {
-
   return (
     <>
     
       <div className='text-[70px]'>
-        Тут должны быть вывод категорий и статичные 
+        Тут должны быть вывод категорий и статичные
+
       </div>
     </>
   );

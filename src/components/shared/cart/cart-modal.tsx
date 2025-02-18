@@ -1,5 +1,4 @@
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import React from "react";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../../ui/sheet";
 import { ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui";

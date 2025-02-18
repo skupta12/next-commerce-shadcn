@@ -1,5 +1,3 @@
-import React from "react";
-
 interface WidthWrapperProps {
   className?: string;
   children: React.ReactNode;

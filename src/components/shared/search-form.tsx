@@ -2,7 +2,6 @@
 import { cn, createUrl } from "@/lib/utils";
 import { Search } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import React from "react";
 import { Input } from "../ui";
 
 interface SearchFormProps {

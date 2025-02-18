@@ -1,4 +1,4 @@
-import { ProductCard } from "@/components/shared/product/product-card";
+import { ProductCard } from "@/components/shared/product";
 import { defaultSort, sorting } from "@/lib/constants";
 import { getProducts } from "@/lib/shopify";
 import React from "react";
@@ -26,7 +26,7 @@ export default async function SearchPage(props: {
         </p>
       ) : null}
       {products.length > 0 ? (
-        <ProductCard className="mt-4" products={products} />
+          <ProductCard products={products} />
       ) : null}
     </div>
   );

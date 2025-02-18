@@ -1,11 +1,10 @@
-import React from "react";
 import Link from "next/link";
 import { Menu } from "@/lib/shopify/types";
 import { getMenu } from "@/lib/shopify";
-import LogoSquare from "../icons/logo-square";
 import { Container, SearchForm } from "@/components/shared";
 import { HeaderMobileMenu } from "./header-mobile-menu";
 import { CartModal } from "../cart/cart-modal";
+import { LogoSquare } from "../icons";
 
 interface HeaderProps {
   className?: string;
@@ -44,7 +43,7 @@ export const Header: React.FC<HeaderProps> = async ({ className }) => {
                     <li key={item.title}>
                       <Link
                         href={item.path}
-                        prefetch={true}
+                        prefetch
                         className="text-neutral-500 underline-offset-4 hover:text-black hover:underline"
                       >
                         {item.title}
