@@ -1,5 +1,8 @@
 import { Product } from "@/lib/shopify/types";
 import { Price } from "../price";
+import { VariantSelector } from "./variant-selector";
+import Prose from "./prose";
+import { AddToCart } from "../cart";
 
 
 export function ProductDescription({ product }: { product: Product }) {
@@ -14,14 +17,14 @@ export function ProductDescription({ product }: { product: Product }) {
           />
         </div>
       </div>
-      {/* <VariantSelector options={product.options} variants={product.variants} />
+      <VariantSelector options={product.options} variants={product.variants} />
       {product.descriptionHtml ? (
         <Prose
           className="mb-6 text-sm leading-tight dark:text-white/[60%]"
           html={product.descriptionHtml}
         />
       ) : null}
-      <AddToCart product={product} /> */}
+      <AddToCart product={product} />
     </>
   );
 }

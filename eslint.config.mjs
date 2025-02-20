@@ -14,6 +14,7 @@ const eslintConfig = [
   {
     rules: {
       "@typescript-eslint/no-namespace": ["error", { allowDeclarations: true }],
+      '@typescript-eslint/no-explicit-any': 'off',
     },
   },
 ];

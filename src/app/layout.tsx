@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Footer } from "@/components/shared";
-import "../app/globals.css"
+import "../app/globals.css";
 import { Header } from "@/components/shared/header";
+import { CartProvider } from "@/components/shared/cart";
+import { getCart } from "@/lib/shopify";
+import { cookies } from "next/headers";
 
 const inter = Inter({
   weight: ["400", "500", "600"],
@@ -20,12 +23,19 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+
+    // Don't await the fetch, pass the Promise to the context provider
+    const cartId = (await cookies()).get("cartId")?.value;
+    const cart = getCart(cartId);
+
   return (
     <html lang="en" className={`${inter.className} antialiased`}>
       <body className="bg-neutral-50 text-black selection:bg-teal-300">
-        <Header />
-        <main>{children}</main>
-        <Footer />
+        <CartProvider cartPromise={cart} >
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );
