@@ -9,7 +9,7 @@ export default async function Home() {
     <>
     
       <div className='text-[70px]'>
-        Тут должны быть вывод категорий и статичные
+      
 
       </div>
     </>

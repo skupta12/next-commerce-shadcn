@@ -10,7 +10,7 @@ interface PriceProps {
 export const Price: React.FC<PriceProps & React.ComponentProps<"p">> = ({
   className,
   amount,
-  currencyCode = "USD",
+  currencyCode = "EUR",
   currencyCodeClassName,
 }) => {
   return (

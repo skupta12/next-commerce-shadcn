@@ -29,7 +29,7 @@ function SubmitButton({ type }: { type: "plus" | "minus" }) {
   );
 }
 
-export function EditItemQuantityButton({
+export const EditItemQuantityButton = ({
   item,
   type,
   optimisticUpdate,
@@ -37,7 +37,7 @@ export function EditItemQuantityButton({
   item: CartItem;
   type: "plus" | "minus";
   optimisticUpdate: any;
-}) {
+}) => {
   const [message, formAction] = useActionState(updateItemQuantity, null);
   const payload = {
     merchandiseId: item.merchandise.id,

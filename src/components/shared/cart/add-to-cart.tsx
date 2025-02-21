@@ -3,7 +3,6 @@
 import { Product, ProductVariant } from "@/lib/shopify/types";
 import { useProduct } from "../product/product-context";
 import { useCart } from "./cart-context";
-import clsx from "clsx";
 import { addItem } from "./actions";
 import { PlusIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -22,7 +21,7 @@ function SubmitButton({
 
   if (!availableForSale) {
     return (
-      <button disabled className={clsx(buttonClasses, disabledClasses)}>
+      <button disabled className={cn(buttonClasses, disabledClasses)}>
         Out of Stock
       </button>
     );
@@ -46,7 +45,7 @@ function SubmitButton({
   return (
     <button
       aria-label="Add to cart"
-      className={clsx(buttonClasses, {
+      className={cn(buttonClasses, {
         "hover:opacity-90": true,
       })}
     >
@@ -58,7 +57,12 @@ function SubmitButton({
   );
 }
 
-export function AddToCart({ product }: { product: Product }) {
+interface AddToCartProps {
+  product: Product;
+}
+
+export const AddToCart = ({ product }: AddToCartProps) => {
+  
   const { variants, availableForSale } = product;
   const { addCartItem } = useCart();
   const { state } = useProduct();

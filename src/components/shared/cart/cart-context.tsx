@@ -29,9 +29,9 @@ function createEmptyCart(): Cart {
     totalQuantity: 0,
     lines: [],
     cost: {
-      subtotalAmount: { amount: "0", currencyCode: "USD" },
-      totalAmount: { amount: "0", currencyCode: "USD" },
-      totalTaxAmount: { amount: "0", currencyCode: "USD" },
+      subtotalAmount: { amount: "0", currencyCode: "EUR" },
+      totalAmount: { amount: "0", currencyCode: "EUR" },
+      totalTaxAmount: { amount: "0", currencyCode: "EUR" },
     },
   };
 }

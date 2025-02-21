@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Footer } from "@/components/shared";
 import "../app/globals.css";
 import { Header } from "@/components/shared/header";
 import { CartProvider } from "@/components/shared/cart";
@@ -34,7 +33,7 @@ export default async function RootLayout({
         <CartProvider cartPromise={cart} >
           <Header />
           <main>{children}</main>
-          <Footer />
+          {/* <Footer /> */}
         </CartProvider>
       </body>
     </html>

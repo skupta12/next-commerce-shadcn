@@ -5,7 +5,7 @@ import Prose from "./prose";
 import { AddToCart } from "../cart";
 
 
-export function ProductDescription({ product }: { product: Product }) {
+export const ProductDescription = ({ product }: { product: Product }) => {
   return (
     <>
       <div className="mb-6 flex flex-col border-b pb-6 dark:border-neutral-700">
