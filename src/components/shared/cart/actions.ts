@@ -114,17 +114,20 @@ export async function redirectToCheckout() {
   const cartId = (await cookies()).get("cartId")?.value;
 
   if (!cartId) {
-    return "Missing cart ID";
+    console.error("Missing cart ID");
+    return;
   }
 
   const cart = await getCart(cartId);
 
   if (!cart) {
-    return "Error fetching cart";
+    console.error("Error fetching cart");
+    return;
   }
 
   redirect(cart.checkoutUrl);
 }
+
 
 export async function createCartAndSetCookie() {
   const cart = await createCart();
