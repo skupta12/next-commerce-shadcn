@@ -1,5 +1,5 @@
 "use client";
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Cart, CartItem, Product, ProductVariant } from "@/lib/shopify/types";
 import { createContext, use, useContext, useMemo, useOptimistic } from "react";
 

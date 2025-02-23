@@ -17,7 +17,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       {products.map((product) => (
         <div
           key={product.handle}
-          className="lg:col-span-4 sm:col-span-6 col-span-12 border p-0 animate-fadeIn"
+          className="lg:col-span-4 sm:col-span-6 col-span-12 p-0 animate-fadeIn"
         >
           <Link
             className="flex flex-col gap-4"
@@ -34,7 +34,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                 currencyCode: product.priceRange.minVariantPrice.currencyCode,
               }}
               src={product.featuredImage?.url}
-              className="text-[25px] text-semibold"
+              // className="text-[25px] text-semibold"
             />
           </Link>
         </div>

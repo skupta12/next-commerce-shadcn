@@ -18,7 +18,6 @@ type MerchandiseSearchParams = {
 };
 
 export const CartModal: React.FC = () => {
-
   const { cart, updateCartItem } = useCart();
   const [isOpen, setIsOpen] = useState(false);
   const quantityRef = useRef(cart?.totalQuantity);
@@ -43,7 +42,6 @@ export const CartModal: React.FC = () => {
       quantityRef.current = cart?.totalQuantity;
     }
   }, [isOpen, cart?.totalQuantity, quantityRef]);
-
 
   return (
     <>
@@ -110,9 +108,7 @@ export const CartModal: React.FC = () => {
                           productImageUrl={
                             item.merchandise.product.featuredImage.url
                           }
-                          productTitle={
-                            item.merchandise.product.title
-                          }
+                          productTitle={item.merchandise.product.title}
                           merchandiseUrl={merchandiseUrl}
                           merchandiseTitle={item.merchandise.title}
                           totalAmount={item.cost.totalAmount.amount}
@@ -128,12 +124,16 @@ export const CartModal: React.FC = () => {
                 totalTaxAmount={cart.cost.totalTaxAmount.amount}
                 totalAmountCurrencyCode={cart.cost.totalAmount.currencyCode}
                 totalAmount={cart.cost.totalAmount.amount}
-                totalTaxAmountCurrencyCode={cart.cost.totalTaxAmount.currencyCode}
+                totalTaxAmountCurrencyCode={
+                  cart.cost.totalTaxAmount.currencyCode
+                }
               />
 
-              <form action={redirectToCheckout}> {/* <form onSubmit={async (e) => { e.preventDefault(); await redirectToCheckout(); }}> */}
-                <CheckoutButton />
-              </form>
+              <form
+                onSubmit={async () => {
+                  await redirectToCheckout();
+                }}
+              ></form>
             </div>
           )}
 
@@ -145,7 +145,6 @@ export const CartModal: React.FC = () => {
 };
 
 const CheckoutButton = () => {
-
   const { pending } = useFormStatus();
 
   return (
