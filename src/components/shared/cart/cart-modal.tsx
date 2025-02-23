@@ -134,7 +134,6 @@ export const CartModal: React.FC = () => {
               <form action={redirectToCheckout}> {/* <form onSubmit={async (e) => { e.preventDefault(); await redirectToCheckout(); }}> */}
                 <CheckoutButton />
               </form>
-              
             </div>
           )}
 
