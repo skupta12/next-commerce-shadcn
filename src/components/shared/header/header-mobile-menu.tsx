@@ -30,7 +30,7 @@ export const HeaderMobileMenu: React.FC<HeaderMobileMenuProps> = ({
   const handleCloseModal = (isOpen?: boolean) => {
     // temp
     if (!isOpen) {
-      setTimeout(() => setOpen(false), 100);
+      setTimeout(() => setOpen(false), 300);
     } else {
       setOpen(true);
     }
@@ -67,7 +67,7 @@ export const HeaderMobileMenu: React.FC<HeaderMobileMenuProps> = ({
         </nav>
 
         <VisuallyHidden>
-          <SheetTitle className="text-[22px]">hidden</SheetTitle>
+          <SheetTitle>hidden</SheetTitle>
         </VisuallyHidden>
       </SheetContent>
     </Sheet>

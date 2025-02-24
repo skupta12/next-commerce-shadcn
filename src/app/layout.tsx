@@ -5,6 +5,7 @@ import { Header } from "@/components/shared/header";
 import { CartProvider } from "@/components/shared/cart";
 import { getCart } from "@/lib/shopify";
 import { cookies } from "next/headers";
+import { Footer } from "@/components/shared";
 
 const inter = Inter({
   weight: ["400", "500", "600"],
@@ -33,7 +34,7 @@ export default async function RootLayout({
         <CartProvider cartPromise={cart} >
           <Header />
           <main>{children}</main>
-          {/* <Footer /> */}
+          <Footer />
         </CartProvider>
       </body>
     </html>
