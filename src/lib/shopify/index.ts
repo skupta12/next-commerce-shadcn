@@ -32,11 +32,15 @@ import {
   ShopifyUpdateCartOperation,
   ShopifyRemoveFromCartOperation,
   ShopifyCartOperation,
+  ShopifyPageOperation,
+  ShopifyPagesOperation,
+  Page,
 } from "./types";
 import { getCartQuery } from "./queries/cart";
 import { NextRequest, NextResponse } from "next/server";
 import { headers } from "next/headers";
 import { revalidateTag } from "next/cache";
+import { getPageQuery, getPagesQuery } from "./queries/page";
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
   ? ensureStartsWith(process.env.SHOPIFY_STORE_DOMAIN, "https://")
@@ -441,5 +445,23 @@ export async function revalidate(req: NextRequest): Promise<NextResponse> {
   }
 
   return NextResponse.json({ status: 200, revalidated: true, now: Date.now() });
+}
+
+
+export async function getPage(handle: string): Promise<Page> {
+  const res = await shopifyFetch<ShopifyPageOperation>({
+    query: getPageQuery,
+    variables: { handle }
+  });
+
+  return res.body.data.pageByHandle;
+}
+
+export async function getPages(): Promise<Page[]> {
+  const res = await shopifyFetch<ShopifyPagesOperation>({
+    query: getPagesQuery
+  });
+
+  return removeEdgesAndNodes(res.body.data.pages);
 }
 
