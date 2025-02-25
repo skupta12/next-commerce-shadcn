@@ -30,7 +30,7 @@ export function ProductCardItem({
     >
       {props.src ? (
         <Image
-          className={cn('relative h-full w-full object-contain', {
+          className={cn('relative h-full w-full aspect-[3/2] object-contain', {
             'transition duration-300 ease-in-out group-hover:scale-105': isInteractive
           })}
           {...props}

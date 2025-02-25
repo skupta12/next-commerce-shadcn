@@ -28,6 +28,7 @@ export const HeaderMobileMenu: React.FC<HeaderMobileMenuProps> = ({
   const [open, setOpen] = React.useState(false); // temp
 
   const handleCloseModal = (isOpen?: boolean) => {
+    
     // temp
     if (!isOpen) {
       setTimeout(() => setOpen(false), 300);
