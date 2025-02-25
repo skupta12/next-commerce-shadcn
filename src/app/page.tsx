@@ -1,19 +1,14 @@
-import React from 'react';
+import { HomePage } from "@/components/shared/home/home-page";
+import React from "react";
 
 // interface PageProps {
 // className?: string;
 // }
 
-export default async function Home() {
+export default function Home() {
   return (
     <>
-    
-      <div className='text-[70px]'>
-      
-
-      </div>
+      <HomePage />
     </>
   );
 }
-
-
