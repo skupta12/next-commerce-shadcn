@@ -13,6 +13,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export async function addItem(
+  prevState: any,
   selectedVariantId: string | undefined
 ) {
   const cartId = (await cookies()).get("cartId")?.value;

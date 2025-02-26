@@ -1,7 +1,7 @@
 "use client";
 
 import { Cart, CartItem, Product, ProductVariant } from "@/lib/shopify/types";
-import { createContext, startTransition, use, useContext, useMemo, useOptimistic } from "react";
+import { createContext, use, useContext, useMemo, useOptimistic } from "react";
 
 type UpdateType = "plus" | "minus" | "delete";
 
@@ -202,13 +202,9 @@ export function CartProvider({
     });
   };
 
-
   const addCartItem = (variant: ProductVariant, product: Product) => {
-    startTransition(() => {
-      updateOptimisticCart({ type: "ADD_ITEM", payload: { variant, product } });
-    });
+    updateOptimisticCart({ type: "ADD_ITEM", payload: { variant, product } });
   };
-  
 
   const value = useMemo(
     () => ({

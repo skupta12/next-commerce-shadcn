@@ -1,20 +1,19 @@
 "use client";
 
-import { useState } from "react";
-import { PlusIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Product, ProductVariant } from "@/lib/shopify/types";
+import { useProduct } from "../product/product-context";
 import { useCart } from "./cart-context";
 import { addItem } from "./actions";
-import { Product } from "@/lib/shopify/types";
+import { PlusIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { useActionState } from "react";
 
 function SubmitButton({
   availableForSale,
   selectedVariantId,
-  isLoading,
 }: {
   availableForSale: boolean;
   selectedVariantId: string | undefined;
-  isLoading: boolean;
 }) {
   const buttonClasses =
     "relative flex w-full items-center justify-center rounded-full bg-blue-600 p-4 tracking-wide text-white";
@@ -31,9 +30,9 @@ function SubmitButton({
   if (!selectedVariantId) {
     return (
       <button
+        aria-label="Please select an option"
         disabled
         className={cn(buttonClasses, disabledClasses)}
-        aria-label="Please select an option"
       >
         <div className="absolute left-0 ml-4">
           <PlusIcon className="h-5" />
@@ -45,13 +44,15 @@ function SubmitButton({
 
   return (
     <button
-      disabled={isLoading}
-      className={cn(buttonClasses, { "hover:opacity-90": !isLoading })}
+      aria-label="Add to cart"
+      className={cn(buttonClasses, {
+        "hover:opacity-90": true,
+      })}
     >
       <div className="absolute left-0 ml-4">
         <PlusIcon className="h-5" />
       </div>
-      {isLoading ? "Adding to cart..." : "Add To Cart"}
+      Add To Cart
     </button>
   );
 }
@@ -61,37 +62,36 @@ interface AddToCartProps {
 }
 
 export const AddToCart = ({ product }: AddToCartProps) => {
+  
   const { variants, availableForSale } = product;
   const { addCartItem } = useCart();
-  const [isLoading, setIsLoading] = useState(false);
-
-  const variant = variants[0]; // Пример выбора варианта, лучше использовать реальный выбранный вариант.
-  const selectedVariantId = variant?.id;
-
-  const handleAddToCart = async () => {
-    if (!selectedVariantId) return;
-
-    setIsLoading(true);
-    try {
-      await addItem(selectedVariantId, ); // Отправка запроса на добавление
-      addCartItem(variant, product); // Обновление состояния корзины после запроса
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
+  const { state } = useProduct();
+  const [message, formAction] = useActionState(addItem, null);
+  const variant = variants.find((variant: ProductVariant) =>
+    variant.selectedOptions.every(
+      (option) => option.value === state[option.name.toLowerCase()]
+    )
+  );
+  const defaultVariantId = variants.length === 1 ? variants[0]?.id : undefined;
+  const selectedVariantId = variant?.id || defaultVariantId;
+  const actionWithVariant = formAction.bind(null, selectedVariantId);
+  const finalVariant = variants.find(
+    (variant) => variant.id === selectedVariantId
+  )!;
   return (
     <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        handleAddToCart();
+      action={async () => {
+        addCartItem(finalVariant, product);
+        await actionWithVariant();
       }}
     >
       <SubmitButton
         availableForSale={availableForSale}
         selectedVariantId={selectedVariantId}
-        isLoading={isLoading}
       />
+      <p className="sr-only" role="status" aria-label="polite">
+        {message}
+      </p>
     </form>
   );
-};
+}
