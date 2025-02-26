@@ -8,7 +8,7 @@ export default function Loading() {
           .fill(0)
           .map((_, index) => {
             return (
-              <Skeleton className="bg-neutral-300 aspect-[3/2] w-full lg:col-span-4 sm:col-span-6 col-span-12" key={index}/>
+              <Skeleton className="bg-neutral-200 aspect-[3/2] w-full lg:col-span-4 sm:col-span-6 col-span-12" key={index}/>
             );
           })}
       </div>
