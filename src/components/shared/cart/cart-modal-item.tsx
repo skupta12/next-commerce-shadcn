@@ -36,7 +36,7 @@ export const CartModalItem: React.FC<CartModalItemProps> = ({
   return (
     <div className="relative flex w-full flex-row justify-between px-1 py-4">
       <div className="absolute z-40 -ml-1 -mt-2">
-        <DeleteItemButton item={item} />
+        <DeleteItemButton item={item} optimisticUpdate={optimisticUpdate} />
       </div>
       <div className="flex flex-row">
         <div className="relative h-16 w-16 overflow-hidden rounded-md border border-neutral-300 bg-neutral-300">
