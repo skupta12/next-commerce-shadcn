@@ -47,7 +47,7 @@ export const CartModal: React.FC = () => {
 
   return (
     <>
-      <button className="relative" aria-label="Open cart">
+      <button className="relative" aria-label="Cart number">
         <CartNumber quantity={cart?.totalQuantity} />
       </button>
       <Sheet open={isOpen} onOpenChange={isOpen ? closeCart : openCart}>
@@ -71,7 +71,7 @@ export const CartModal: React.FC = () => {
             </div>
           ) : (
             <div className="pt-10 flex h-full flex-col justify-between overflow-hidden p-0">
-              <ul className="grow overflow-auto py-4">
+              <ul className="grow overflow-auto py-4 scrollbar">
                 {cart.lines
                   .sort((a, b) =>
                     a.merchandise.product.title.localeCompare(
