@@ -6,7 +6,7 @@ import { useCart } from "./cart-context";
 import { addItem } from "./actions";
 import { PlusIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 
 function SubmitButton({
   availableForSale,
@@ -15,6 +15,8 @@ function SubmitButton({
   availableForSale: boolean;
   selectedVariantId: string | undefined;
 }) {
+  const [loading, setLoading] = useState(false);
+
   const buttonClasses =
     "relative flex w-full items-center justify-center rounded-full bg-blue-600 p-4 tracking-wide text-white";
   const disabledClasses = "cursor-not-allowed opacity-60 hover:opacity-60";
@@ -42,8 +44,16 @@ function SubmitButton({
     );
   }
 
+  const handleLoading = () => { // temp
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 500)
+  }
+
   return (
     <button
+      onClick={handleLoading}
       aria-label="Add to cart"
       className={cn(buttonClasses, {
         "hover:opacity-90": true,
@@ -52,7 +62,7 @@ function SubmitButton({
       <div className="absolute left-0 ml-4">
         <PlusIcon className="h-5" />
       </div>
-      Add To Cart
+      {loading ? "Adding to cart..." : "Add to Cart"}
     </button>
   );
 }
